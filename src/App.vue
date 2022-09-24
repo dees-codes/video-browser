@@ -8,10 +8,12 @@
 
 <script>
 //App.vue is the brains of our app. Coordinates all the different components in our app.
+//First change from mini mac.
 import axios from 'axios';
 import SearchBar from './components/SearchBar';
 import VideoList from './components/VideoList';
 const API_KEY = 'AIzaSyD3ms9I33HQfwD0-g6vGSqVweQ_Jc6Dhug';
+const random = "to delete";
 
 export default {
     name: 'App',
