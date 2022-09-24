@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import App from './App.vue'
+// Responsible for booting the application; entry point for our app; this is what Vue.js looks for.
 
-Vue.config.productionTip = false
+import Vue from 'vue';
+import App from './App';
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+    render: h => h(App)
+}).$mount('#app');

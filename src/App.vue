@@ -1,28 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <!-- App.vue is the brains of our applicaiton. -->
+    <div class="container">
+        <SearchBar @termChange="onTermChange"></SearchBar>
+        <VideoList :videos="videos"></VideoList>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//App.vue is the brains of our app. Coordinates all the different components in our app.
+import axios from 'axios';
+import SearchBar from './components/SearchBar';
+import VideoList from './components/VideoList';
+const API_KEY = 'AIzaSyD3ms9I33HQfwD0-g6vGSqVweQ_Jc6Dhug';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    name: 'App',
+    // Updating data causes App to rerender and all the child components within App component to re-render as well.
+    // Use data as function, not as object.
+    data() {
+        return { videos: [] };
+    },
+    components: {
+        SearchBar,
+        VideoList
+    },
+    methods: {
+        onTermChange(searchTerm) {
+            axios.get('https://www.googleapis.com/youtube/v3/search', {
+                params: {
+                    key: API_KEY,
+                    type: 'video',
+                    part: 'snippet',
+                    q: searchTerm
+                }
+            }).then(response => {
+                this.videos = response.data.items;
+            });
+        }
+    }
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
